@@ -1,0 +1,25 @@
+#cmake_minimum_required (VERSION 2.8) 
+
+INCLUDE_DIRECTORIES(${PROJECT_SOURCE_DIR}/include/)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/mybuild/sample)
+
+add_executable(sample_basic sample_basic.cpp) 
+add_executable(sample_menu sample_menu.cpp) 
+add_executable(sample_media sample_media.cpp) 
+add_executable(sample_message sample_message.cpp) 
+add_executable(sample_template sample_template.cpp) 
+add_executable(sample_user sample_user.cpp) 
+add_executable(sample_threads sample_threads.cpp) 
+add_executable(sample_error sample_error.cpp)
+add_executable(sample_init sample_init.cpp)
+
+target_link_libraries(sample_basic mpclient)
+target_link_libraries(sample_menu mpclient)
+target_link_libraries(sample_media mpclient)
+target_link_libraries(sample_message mpclient)
+target_link_libraries(sample_template mpclient)
+target_link_libraries(sample_user mpclient)
+target_link_libraries(sample_threads mpclient pthread)
+target_link_libraries(sample_error mpclient )
+target_link_libraries(sample_init mpclient )

@@ -1,0 +1,868 @@
+package mpcomm;
+//============================================================
+//PARAM_TYPE_INT-->int64
+//PARAM_TYPE_STRING-->string
+
+message TestMessage{
+	optional int64  field1 							= 1;
+	optional uint64 field2 							= 2;
+	optional string field3 							= 3;
+	optional string field4 							= 4;
+	optional TestMessage field5 					= 5;
+
+}
+
+//=====BASIC=====
+
+message TokenReq {
+	optional string grant_type 						= 1[default="client_credential"];
+	optional string appid							= 2;
+	optional string secret							= 3;
+}
+
+message TokenResp {
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional string access_token 					= 3;
+	optional uint64 expires_in 						= 4;
+}
+
+message GetCallbackIPReq{
+	optional string access_token 					= 1;
+}
+
+message GetCallbackIPResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	repeated string ip_list 						= 3;
+}
+
+//======MENU=====
+
+message MenuButton {
+	optional string type        					= 1;
+	optional string name        					= 2;
+	optional string key         					= 3;
+	optional string url         					= 4;
+	repeated MenuButton sub_button  				= 5;
+	optional string media_id     					= 6;
+}
+
+message MenuMatchRule {
+	optional string tag_id	 						= 1;
+	optional string group_id						= 8;
+	optional string sex 							= 2;
+	optional string client_platform_type 			= 3;
+	optional string country 						= 4;
+	optional string province 						= 5;
+	optional string city 							= 6;
+	optional string language						= 7;
+}
+
+message Menu{
+	repeated MenuButton button						= 1;
+	optional MenuMatchRule matchrule   				= 2;
+	optional uint64 menuid             				= 3;
+}
+
+message CreateMenuReq{
+	optional string access_token 					= 1;
+	repeated MenuButton button						= 2;
+}
+
+message CreateMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+}
+
+message GetMenuReq{
+	optional string access_token 					= 1;
+}
+
+message GetMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional Menu menu								= 3;
+	repeated Menu conditionalmenu					= 4;
+}
+
+message DeleteMenuReq{
+	optional string access_token 					= 1;
+}
+
+message DeleteMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+}
+
+message AddConditionalMenuReq{
+	optional string access_token 					= 1;
+	repeated MenuButton button						= 2;
+	optional MenuMatchRule matchrule 				= 3;
+}
+
+message AddConditionalMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional uint64 menuid 							= 3;
+}
+
+message DelConditionalMenuReq{
+	optional string access_token 					= 1;
+	optional uint64 menuid 							= 2;
+}
+
+message DelConditionalMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+}
+
+message TryMatchMenuReq{
+	optional string access_token 					= 1;
+	optional string user_id 						= 2;
+}
+
+message TryMatchMenuResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	repeated MenuButton button						= 3;
+}
+
+message GetCurrentSelfMenuInfoReq{
+	optional string access_token        			= 1;
+}
+
+//=====================================================
+
+message RespNews{
+	optional string title         					= 1;
+	optional string author        					= 2;
+	optional string digest        					= 3;
+	optional uint64 show_cover   					= 4;
+	optional string cover_url     					= 5;
+	optional string content_url   					= 6;
+	optional string source_url    					= 7;
+}
+
+message RespNewsList{
+	repeated RespNews list 							= 1;
+}
+
+message CurrentSelfMenuButton{
+	optional string type         					= 1;
+	optional string name         					= 2;
+	optional string key          					= 3;
+	optional string url          					= 4;
+	optional string value        					= 5;
+	optional RespNewsList news_info 				= 6;
+	optional CurrentSelfMenuButtonList sub_button	= 7;
+}
+
+message CurrentSelfMenuButtonList{
+	repeated CurrentSelfMenuButton list 			= 1;
+}
+
+message CurrentSelfMenu{
+	repeated CurrentSelfMenuButton button          	= 1;
+}
+
+message GetCurrentSelfMenuInfoResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional uint64 is_menu_open 					= 3;
+	optional CurrentSelfMenu selfmenu_info 			= 4;
+}
+
+message ReplyItem{
+	optional string type       						= 1;
+	optional string content    						= 2;
+	optional RespNewsList news_info   				= 3;
+}
+
+message KeyWordItem{
+	optional string type 							= 1;
+	optional string match_mode 						= 2;
+	optional string content 						= 3;
+}
+
+message AutoReplyRule{
+	optional string rule_name 						= 1;
+	optional uint64 create_time 					= 2;
+	optional string reply_mode 						= 3;
+	repeated KeyWordItem keyword_list_info 			= 4;
+	repeated ReplyItem reply_list_info 				= 5;
+}
+
+message AutoReplyRuleList{
+	repeated AutoReplyRule list 					= 1;
+}
+
+message GetCurrentAutoReplyInfoReq{
+	optional string access_token        			= 1;
+}
+
+message GetCurrentAutoReplyInfoResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 is_add_friend_reply_open 			= 3;
+	optional uint64 is_autoreply_open 					= 4;
+	optional ReplyItem add_friend_autoreply_info 		= 5;
+	optional ReplyItem message_default_autoreply_info 	= 6;
+	optional AutoReplyRuleList keyword_autoreply_info 	= 7;
+}
+
+//==========message================
+message Text{
+	optional string content         				= 1;
+}   
+
+message Image{
+	optional string media_id        				= 1;
+}
+
+message Voice{
+	optional string media_id        				= 1;
+}
+
+message Video{
+	optional string media_id        				= 1;
+	optional string thumb_media_id  				= 2;
+	optional string title           				= 3;
+	optional string description     				= 4;
+}
+
+message Link{
+	optional string title           				= 1;
+	optional string description     				= 2;
+	optional string url             				= 3;
+	optional string thumb_media_id  				= 4;
+}
+
+message Card{
+	optional string weixin_id       				= 1;
+}
+
+message ArticlesItem {
+	optional string title        					= 1;
+	optional string description  					= 2;
+	optional string picurl       					= 3;
+	optional string url          					= 4;
+}
+
+message NewsMsg{
+	repeated ArticlesItem articles  				= 1;
+	optional string thumb_media_id  				= 4;
+}
+
+message Music{
+	optional string title           				= 1;
+	optional string description     				= 2;
+	optional string musicurl        				= 3;
+	optional string hqmusicurl      				= 4;
+	optional string thumb_media_id  				= 5;
+}
+
+message MpNewsMsg
+{
+	optional string media_id        				= 1;
+}
+
+message MpVideo{
+	optional string media_id        				= 1;
+}
+
+message WxCard {
+	optional string card_id         				= 1;
+	optional string card_ext						= 2;
+}
+
+message CustomServiceInfo{
+	optional string kf_account 						= 1;
+}
+
+message SendCustomMessageReq{
+	optional string access_token    			    	= 1;
+	optional string msgtype								= 2;
+	optional string touser								= 3;
+	optional Text	text								= 4;
+	optional Image image								= 5;
+	optional Voice voice								= 6;
+	optional Video video								= 7;
+	optional Music music								= 8;
+	optional NewsMsg news								= 9;
+	optional MpNewsMsg mpnews							= 10;
+	optional WxCard	wxcard								= 11;
+	optional CustomServiceInfo customservice 			= 12;
+	optional MpVideo mpvideo							= 13;
+}
+
+message SendCustomMessageResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+}
+
+message SendFilter{
+	optional bool is_to_all								= 1;
+	optional uint64 tag_id								= 2;
+}
+
+message MassSendAllReq{
+	optional string access_token        				= 1;
+	optional SendFilter filter							= 2;
+	optional string msgtype								= 3;
+	optional Text text									= 4;
+	optional Image image								= 5;
+	optional Voice voice								= 6;
+	optional MpVideo mpvideo							= 7;
+	optional MpNewsMsg mpnews							= 8;
+	optional WxCard wxcard								= 9;
+}
+
+message MassSendAllResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+	optional uint64 msg_id								= 3;
+	optional uint64 msg_data_id							= 4;
+}
+
+message MassSendReq{
+	optional string access_token        				= 1;
+	repeated string touser								= 2;
+	optional string msgtype             				= 3;
+	optional Text text									= 4;
+	optional Image image								= 5;
+	optional Voice voice								= 6;
+	optional MpNewsMsg mpnews							= 8;
+	optional WxCard wxcard								= 9;
+	optional MpVideo mpvideo							= 10;
+}
+
+message MassSendResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+	optional uint64 msg_id								= 3;
+	optional uint64 msg_data_id							= 4;
+}
+
+message MassDeleteReq{
+	optional string access_token        				= 1;
+	optional uint64 msg_id								= 2;
+}
+
+message MassDeleteResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+	optional uint64 msg_id								= 3;
+}
+
+message MassPreviewReq{
+	optional string access_token        				= 1;
+	optional string touser								= 2;
+	optional string towxname							= 3;
+	optional string msgtype								= 4;
+	optional Text text									= 5;
+	optional Image image								= 6;
+	optional Voice voice								= 7;
+	optional MpNewsMsg mpnews							= 8;
+	optional WxCard wxcard								= 9;
+	optional MpVideo mpvideo							= 10;
+}
+
+message MassPreviewResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+}
+
+message MassGetReq{
+	optional string access_token        				= 1;
+	optional uint64 msg_id								= 2;
+}
+
+message MassGetResp{
+	optional int64 errcode 								= 1;
+	optional string errmsg								= 2;
+	optional uint64 msg_id								= 3;
+	optional string msg_status							= 4;
+}
+
+//===========================================================
+
+message SetIndustryReq{
+	optional string access_token        			= 1;
+	optional string industry_id1					= 2;
+	optional string industry_id2					= 3;
+}
+
+message SetIndustryResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+}
+
+message GetIndustryReq{
+	optional string access_token        			= 1;
+}
+
+message Industry{
+	optional string first_class 					= 1;
+	optional string second_class					= 2;
+}
+
+message GetIndustryResp{
+
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional Industry primary_industry				= 3;
+	optional Industry secondary_industry			= 4;
+}
+
+message AddTemplateReq{
+	optional string access_token        			= 1;
+	optional string template_id_short				= 2;
+}
+
+message AddTemplateResp{
+	optional int64 errcode							= 1;
+	optional string errmsg							= 2;
+	optional string template_id						= 3;
+}
+
+message GetAllPrivateTemplateReq{
+	optional string access_token        			= 1;
+}
+
+	message PrivateTemplate {
+		optional string template_id 				= 1;
+		optional string title 						= 2;
+		optional string primary_industry 			= 3;
+		optional string deputy_industry 			= 4;
+		optional string content 					= 5;
+		optional string example 					= 6;
+	}
+
+message GetAllPrivateTemplateResp{
+
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	repeated PrivateTemplate template_list 				= 3;
+}
+
+message DelPrivateTemplateReq{
+	optional string access_token        				= 1;
+	optional string template_id							= 2;
+}
+
+message DelPrivateTemplateResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message Json{
+	optional string content								= 1;
+}
+
+message SendTemplateMessageReq{
+	optional string access_token        				= 1;
+	optional string touser								= 2;
+	optional string template_id							= 3;
+	optional string url									= 4;
+	optional Json data									= 5;
+}
+
+message SendTemplateMessageResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 msgid								= 3;
+}
+
+//==========================================================
+
+
+//==========================================================
+
+message MediaFile{
+	optional string file_name							= 1;
+	optional string buffer								= 2;
+}
+message NewsItem {
+	optional string title 								= 1;
+	optional string author 								= 2;
+	optional string digest 								= 3;
+	optional string content 							= 4;
+	optional string content_source_url				 	= 5;
+	optional string thumb_media_id 						= 6;
+	optional int64 show_cover_pic 						= 7;
+	optional string url 								= 8;
+	optional string thumb_url 							= 9;
+}
+
+message NewsInfo{
+	repeated NewsItem news_item 						= 1;
+}
+
+message UploadImgReq{
+	optional string access_token        				= 1;
+	optional MediaFile media							= 2;
+}
+
+message UploadImgResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional string url									= 3;
+}
+
+message UploadNewsReq{
+	optional string access_token        				= 1;
+	repeated NewsItem articles							= 2;
+}
+
+message UploadNewsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional string type								= 3;
+	optional string media_id							= 4;
+	optional uint64 created_at							= 5;
+}
+
+message UploadMediaReq{
+	optional string access_token        				= 1;
+	optional string type								= 2;
+	optional MediaFile media							= 3;
+}
+
+message UploadMediaResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional string type                    			= 3;
+	optional string media_id                			= 4;
+	optional uint64 created_at               			= 5;
+	optional string thumb_media_id						= 6;
+}
+
+message GetMediaReq{
+	optional string access_token        				= 1;
+	optional string media_id							= 2;
+}
+
+message GetMediaResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional MediaFile media							= 3;
+}
+
+message MaterialVideoDescription {
+	optional string title 								= 1;
+	optional string introduction 						= 2;
+}
+
+message AddNewsMaterialReq{
+	optional string access_token        				= 1;
+	repeated NewsItem articles							= 2;
+}
+
+message AddNewsMaterialResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional string media_id							= 3;
+}
+
+
+message AddMaterialReq{
+	optional string access_token        				= 1;
+	optional string type								= 2;
+	optional MediaFile media							= 3;
+	optional MaterialVideoDescription description 		= 4;
+}
+
+message AddMaterialResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional string media_id							= 3;
+	optional string url									= 4;
+}
+
+message GetMaterialReq{
+	optional string access_token        				= 1;
+	optional string media_id							= 2;
+}
+
+message GetMaterialResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	//for news
+	repeated NewsItem news_item							= 3;
+	//for video
+	optional string title								= 4;
+	optional string description							= 5;
+	optional string down_url							= 6;
+	//for other
+	optional MediaFile media							= 7;
+}
+
+message DelMaterialReq{
+	optional string access_token        				= 1;
+	optional string media_id							= 2;
+}
+
+message DelMaterialResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message UpdateNewsReq{
+	optional string access_token        				= 1;
+	optional string media_id							= 2;
+	optional uint64 index								= 3;
+	optional NewsItem articles							= 4;
+}
+
+message UpdateNewsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message GetMaterialCountReq{
+	optional string access_token        				= 1;
+}
+
+message GetMaterialCountResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 voice_count							= 3;
+	optional uint64 video_count							= 4;
+	optional uint64 image_count							= 5;
+	optional uint64 news_count							= 6;
+}
+
+message BatchGetMaterialReq{
+	optional string access_token        				= 1;
+	optional string type								= 2;
+	optional uint64 offset								= 3;
+	optional uint64 count								= 4;
+}
+
+message MaterialItem{
+	optional string media_id 							= 1;
+	optional string name 								= 2;
+	optional NewsInfo content 							= 3;
+	optional uint64 update_time 						= 4;
+	optional string bind_template_id 					= 5;
+	optional string url 								= 6;
+}
+
+message BatchGetMaterialResp{
+
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	repeated MaterialItem item 							= 3;
+	optional uint64 total_count 						= 4;
+	optional uint64 item_count 							= 5;
+}
+
+//==========================================================
+
+message Tag{
+	optional uint64 id 									= 1;
+	optional string name 								= 2;
+	optional uint64 count								= 3;
+}
+
+message CreateTagsReq{
+	optional string access_token        				= 1;
+	optional Tag tag									= 2;
+}
+
+message CreateTagsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional Tag tag									= 3;
+}
+
+message GetTagsReq{
+	optional string access_token        				= 1;
+}
+
+message GetTagsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	repeated Tag tags									= 3;
+}
+
+message UpdateTagsReq{
+	optional string access_token        				= 1;
+	optional Tag tag									= 2;
+}
+
+message UpdateTagsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message UpdateTagsMembersReq{
+	optional string access_token        				= 1;
+	optional string openid								= 2;
+	optional string to_tagid							= 3;
+}
+
+message UpdateTagsMembersResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message BatchUpdateTagsMembersReq{
+	optional string access_token        				= 1;
+	repeated string openid_list							= 2;
+	optional string to_tagid							= 3;
+}
+
+message BatchUpdateTagsMembersResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message DeleteTagsReq{
+	optional string access_token        				= 1;
+	optional Tag tag									= 2;
+}
+
+message DeleteTagsResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message TagUserData{
+	repeated string openid								= 1;
+}
+
+message GetTagUserReq{
+	optional string access_token        				= 1;
+	optional uint64 tagid								= 2;
+	optional string next_openid 						= 3;
+}
+
+message GetTagUserResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 count								= 3;
+	optional TagUserData data							= 4;
+	optional string next_openid							= 5;
+}
+
+message BatchTaggingMembersReq{
+	optional string access_token                        = 1;
+	repeated string openid_list							= 2;
+	optional uint64 tagid								= 3;
+}
+
+message BatchTaggingMembersResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message BatchUnTaggingMembersReq{
+	optional string access_token                        = 1;
+	repeated string openid_list							= 2;
+	optional uint64 tagid								= 3;
+}
+
+message BatchUnTaggingMembersResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message GetTagsIdListReq{
+	optional string access_token        				= 1;
+	optional string openid								= 2;
+}
+
+message GetTagsIdListResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	repeated uint64 tagid_list							= 3;
+}
+
+message UpdateUserInfoRemarkReq{
+	optional string access_token        				= 1;
+	optional string openid								= 2;
+	optional string remark								= 3;
+}
+
+message UpdateUserInfoRemarkResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+}
+
+message UserInfoReq{
+	optional string access_token        				= 1;
+	optional string openid								= 2;
+	optional string lang 								= 3;
+}
+
+message UserInfoResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 subscribe        					= 3;
+	optional string openid								= 4;
+	optional string nickname							= 5;
+	optional uint64 sex									= 6;
+	optional string language							= 7;
+	optional string city								= 8;
+	optional string province							= 9;
+	optional string country								= 10;
+	optional string headimgurl							= 11;
+	optional uint64 subscribe_time						= 12;
+	optional string unionid								= 13;
+	optional string remark								= 14;
+	optional uint64 groupid								= 15;
+	repeated uint64 tagid_list							= 16;
+}
+
+message BatchGetUserItem{
+	optional string openid								= 1;
+	optional string lang 								= 2;
+}
+
+message BatchGetUserInfoReq{
+	optional string access_token        				= 1;
+	repeated BatchGetUserItem user_list					= 2;
+}
+
+message UserInfoItem{
+	optional uint64 subscribe        					= 1;
+	optional string openid								= 2;
+	optional string nickname							= 3;
+	optional uint64 sex									= 4;
+	optional string language							= 5;
+	optional string city								= 6;
+	optional string province							= 7;
+	optional string country								= 8;
+	optional string headimgurl							= 9;
+	optional uint64 subscribe_time						= 10;
+	optional string unionid								= 11;
+	optional string remark								= 12;
+	optional uint64 groupid								= 13;
+	repeated uint64 tagid_list							= 14;
+}
+
+message BatchGetUserInfoResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	repeated UserInfoItem user_info_list				= 3;
+}
+
+message GetUserReq{
+	optional string access_token        				= 1;
+	optional string next_openid							= 2;
+}
+
+message UserList{
+	repeated string openid        						= 1;
+}
+
+message GetUserResp{
+	optional int64 errcode								= 1;
+	optional string errmsg								= 2;
+	optional uint64 total             					= 3;
+	optional uint64 count            					= 4;
+	optional UserList data            					= 5;
+	optional string next_openid     					= 6;
+}
