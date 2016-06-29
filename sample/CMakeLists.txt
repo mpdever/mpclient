@@ -10,7 +10,7 @@ add_executable(sample_media sample_media.cpp)
 add_executable(sample_message sample_message.cpp) 
 add_executable(sample_template sample_template.cpp) 
 add_executable(sample_user sample_user.cpp) 
-add_executable(sample_threads sample_threads.cpp) 
+#add_executable(sample_threads sample_threads.cpp) 
 add_executable(sample_error sample_error.cpp)
 add_executable(sample_init sample_init.cpp)
 
