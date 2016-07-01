@@ -52,7 +52,7 @@ int HttpHelper::HttpGet( const std::string & url, std::string *
 #if 0
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 #endif
-	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
 	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
 	curl_easy_setopt(curl, CURLOPT_MAXREDIRS, 3);
@@ -106,7 +106,7 @@ int HttpHelper::HttpPost( const std::string & url, const
 #if 0
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 #endif
-	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
 	curl_easy_setopt(curl, CURLOPT_POST, 1L);
 	curl_easy_setopt(curl, CURLOPT_POSTFIELDS, data.c_str());
@@ -171,7 +171,7 @@ int HttpHelper::HttpPostMultiPart( const std::string & url,
 #if 0
 	curl_easy_setopt(curl, CURLOPT_VERBOSE, 1L);
 #endif
-	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 1L);
 	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 2L);
 	if ( iConnTimeOut){
 		curl_easy_setopt(curl, CURLOPT_CONNECTTIMEOUT, iConnTimeOut);
