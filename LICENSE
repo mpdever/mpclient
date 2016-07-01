@@ -1,4 +1,4 @@
-This license applies to all parts mpclient except the following:
+This license applies to all parts of mpclient except the following:
 
   - Google Protobuf, located in
     3rd/google/protobuf/, include/google/protobuf/
