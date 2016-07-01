@@ -36,7 +36,7 @@ make
 如果没有libcurl，则需要自己安装libcurl和openssl(或者其他ssl)  
 
 ### Windows  
-Windows下，也可以使用cmake来生成nmake，也可以用cmake来生成vs project，对于windows下，我们提供了32位的release版的libcurl, openssl的动态库，放在win32目录下，如果需要选用不同的版本，或者不同的编译选项，可以自己编译库，并将相应头文件放到include文件夹下
+Windows下，也可以使用cmake来生成nmake，也可以用cmake来生成vs project，对于windows下，请将依赖的库放在win32目录下，如果需要选用不同的版本，或者不同的编译选项，可以自己编译库，并将相应头文件放到include文件夹下
 
 ---
 
