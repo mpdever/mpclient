@@ -12,6 +12,14 @@ This license applies to all parts of mpclient except the following:
     include/rapidjson
     see license at include/rapidjson/license.txt
 
+  - libcurl
+    mpclient uses the APIs of libcurl
+    see license at https://curl.haxx.se/docs/copyright.html
+    
+  - OpenSSL
+    mpclient uses the APIs of openssl
+    see license at https://www.openssl.org/source/license.html
+
 Copyright (c) 2016, mpdever
 All rights reserved.
 
