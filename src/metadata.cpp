@@ -17,7 +17,7 @@ namespace mpcomm{
 	const char * HTTPS = "https://";
 	const char * DEFUALT_HOST = "api.weixin.qq.com";
 	const char * TEST_DIR = "/cgi-bin/";
-	const char * VERSION = "apisdkver=cppv0.1";
+	const char * VERSION = "cppv0_1";
 
 DEFINE_SERVICE(Token,"Token",
 		HTTP_GET,"/cgi-bin/token", 
